@@ -89,7 +89,8 @@ jobs:
         run: |
           docker run -d --name website -p 127.0.0.1:8000:8000 "$IMAGE"
           trap 'docker logs website; docker rm -f website' EXIT
-          curl --fail --retry 15 --retry-connrefused --retry-delay 1 \
+          curl --fail --retry 15 --retry-all-errors --retry-delay 1 \
+            --max-time 3 --retry-max-time 30 \
             http://127.0.0.1:8000/healthz
           curl --fail http://127.0.0.1:8000/ | grep -q Ergoshear
           curl --fail http://127.0.0.1:8000/static/style.css
