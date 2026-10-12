@@ -41,7 +41,7 @@ jobs:
 
   build-and-push:
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: ergoshear
     permissions:
       contents: read
       packages: write
